@@ -2,15 +2,46 @@ const searchContainer = document.getElementById('search-container');
 const gallery = document.getElementById('gallery');
 
 // ------------------------------------------
-//  FETCH FUNCTIONS
+//  SEARCH BAR
 // ------------------------------------------
+// const form = document.createElement('form');
+// form.setAttribute('action', '#');
+// form.setAttribute('method', 'get');
 
-// function fetchData(url) {
-//   return fetch(url)
-//           .then(checkStatus)
-//           .then(res => res.json())
-//           .catch(error => console.log("Looks like error", error))
+// const searchInput = document.createElement('input');
+// searchInput.setAttribute('type', 'search');
+// searchInput.setAttribute('id', 'search-input');
+// searchInput.setAttribute('class', 'search-input');
+// searchInput.setAttribute('placeholder', 'Search...');
+
+// const submit = document.createElement('submit');
+// submit.setAttribute('type', 'submit');
+// submit.setAttribute('id', 'search-submit');
+// submit.setAttribute('class', 'search-submit');
+// submit.setAttribute('value', '&#x1F50D');
+
+// document.body.appendChild(form);
+// searchContainer.appendChild(searchInput);
+// searchContainer.appendChild(submit);
+
+// function searchBar() {
+//   for (let i =0; i < card.length; i++) {
+//     const form = `
+//       <form action="#" method="get">
+//         <input type="search" id="search-input" class="search-input" placeholder="Search...">
+//         <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+//         </form>
+//     `
+//   }
 // }
+
+// searchInput.addEventListener('keyup', e => {
+
+// })
+
+// ------------------------------------------
+//  FETCH FUNCTION
+// ------------------------------------------
 
 fetch('https://randomuser.me/api/?results=12')
 .then(response => response.json())
@@ -18,7 +49,7 @@ fetch('https://randomuser.me/api/?results=12')
 
 
 // ------------------------------------------
-//  HELPER FUNCTIONS
+//  FETCH HELPER FUNCTION
 // ------------------------------------------
 
 // create a function that takes in an array of employees
@@ -31,7 +62,7 @@ function generateCard(data) {
       const cardDiv = `
         <div class="card">
             <div class="card-img-container">
-                <img class="card-img" src=${data[i].picture} alt="profile picture">
+                <img class="card-img" src=${data[i].picture.thumbnail} alt="profile picture">
             </div>
             <div class="card-info-container">
                 <h3 id="name" class="card-name cap">${data[i].name.first} ${data[i].name.last}</h3>
@@ -43,16 +74,14 @@ function generateCard(data) {
 gallery.insertAdjacentHTML('beforeend', cardDiv);
     }
 }
-//const html = `
-//   <div class='card'>
-//     <div class='card-img-container'>
-//       <img src='${data}' alt='profile picture'>
-//     </div>
-//   </div>
-//   `;
-//   gallery.insertAdjacentHTML('beforeend', html)
-
-
 // ------------------------------------------
-//  EVENT LISTENERS
+//  MODAL
 // ------------------------------------------
+
+// const cardContainer = document.querySelectorAll('.card');
+  
+// cardContainer.addEventListener('click', (e) => {
+//   for (let i =0; i < card.length; i++) {
+//       console.log(cardContainer[i]);
+//     }
+// })
