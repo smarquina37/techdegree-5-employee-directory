@@ -1,46 +1,35 @@
-const searchContainer = document.getElementById('search-container');
+const searchContainer = document.querySelector('.search-container');
 const gallery = document.getElementById('gallery');
 
-// ------------------------------------------
-//  SEARCH BAR
-// ------------------------------------------
-// const form = document.createElement('form');
-// form.setAttribute('action', '#');
-// form.setAttribute('method', 'get');
-
-// const searchInput = document.createElement('input');
-// searchInput.setAttribute('type', 'search');
-// searchInput.setAttribute('id', 'search-input');
-// searchInput.setAttribute('class', 'search-input');
-// searchInput.setAttribute('placeholder', 'Search...');
-
-// const submit = document.createElement('submit');
-// submit.setAttribute('type', 'submit');
-// submit.setAttribute('id', 'search-submit');
-// submit.setAttribute('class', 'search-submit');
-// submit.setAttribute('value', '&#x1F50D');
-
-// document.body.appendChild(form);
-// searchContainer.appendChild(searchInput);
-// searchContainer.appendChild(submit);
-
-// function searchBar() {
-//   for (let i =0; i < card.length; i++) {
-//     const form = `
-//       <form action="#" method="get">
-//         <input type="search" id="search-input" class="search-input" placeholder="Search...">
-//         <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-//         </form>
-//     `
-//   }
-// }
-
-// searchInput.addEventListener('keyup', e => {
-
-// })
 
 // ------------------------------------------
-//  FETCH FUNCTION
+//  SEARCH BAR - added so that employees can be filtered by name.
+// ------------------------------------------
+
+//dynamically created search form and inserted to the DOM
+searchContainer.innerHTML = `
+  <form action="#" method="get">
+    <input type="search" id="search-input" class="search-input" placeholder="Search...">
+    <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+  </form>
+` ;
+
+//Source code: https://teamtreehouse.com/library/javascript-search/javascript-search#downloads
+const employeeSearch = document.getElementById('search-input');
+employeeSearch.addEventListener('keyup', e => {
+  let currentVal = e.target.value.toLowerCase();
+  let employees = document.querySelectorAll('h3#name');
+  employees.forEach(employee => {
+    if (employee.textContent.toLowerCase().includes(currentVal)) {
+      employee.parentNode.parentNode.style.display = 'block';
+    } else {
+      employee.parentNode.parentNode.style.display = 'none';
+    }
+  })
+})
+
+// ------------------------------------------
+//  FETCH FUNCTION - pulls 12 random employees from the API each time page refreshes
 // ------------------------------------------
 
 fetch('https://randomuser.me/api/?results=12')
@@ -49,13 +38,8 @@ fetch('https://randomuser.me/api/?results=12')
 
 
 // ------------------------------------------
-//  FETCH HELPER FUNCTION
+//  FETCH HELPER FUNCTION - loops over each employee and pulls their information to display in the DOM
 // ------------------------------------------
-
-// create a function that takes in an array of employees
-// loop over each of the employees
-// for each employee generate the .card html
-// append that html to the #gallery container
 
 function generateCard(data) {
     for (let i = 0; i < data.length; i++) {
