@@ -84,9 +84,9 @@ function showModal(data) {
       </div>
     </div>
   `;
+  employeeModal.style.display = 'block'
   gallery.insertAdjacentHTML('beforeend', employeeModal);
   }
-// createModal(employeeData);
 
 //Event Listener
 
@@ -101,9 +101,6 @@ gallery.addEventListener('click', e => {
         }
       }
     }
-    if (e.target.id === 'modal-close-btn') {
-      console.log('clicked');
-      
-    }
   }
 })
+
