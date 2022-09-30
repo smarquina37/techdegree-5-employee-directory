@@ -66,10 +66,13 @@ gallery.insertAdjacentHTML('beforeend', cardDiv);
 //  MODAL
 // ------------------------------------------
 
-
-// const myDate = new Date($data.dob.date);
-// const dob = myDate.toLocaleDateString();
-// console.log(myDate)
+function formatDate(data) {
+  for (let i =0; i < data.length; i++) {
+    const myDate = new Date(data[i].dob.date);
+    const dob = myDate.toLocaleDateString();
+    return dob;
+  }
+}
 
 
 function showModal(data) {
@@ -85,7 +88,7 @@ function showModal(data) {
           <hr>
           <p class="modal-text">${data.cell}</p>
           <p class="modal-text">${data.location.street.number} ${data.location.street.name}, ${data.location.city}, ${data.location.state} ${data.location.postcode}</p>
-          <p class="modal-text">Birthday:${data.dob}</p>
+          <p class="modal-text">Birthday: ${formatDate(employeeData)}</p>
         </div>
       </div>
     </div>
@@ -110,9 +113,6 @@ gallery.addEventListener('click', e => {
       for (let i = 0; i < employeeData.length; i++) {
         if ( employeeData[i].email === userEmail) {
           showModal(employeeData[i]);
-          const myDate = new Date(employeeData[i].dob.date);
-          const dob = myDate.toLocaleDateString();
-          console.log(myDate);
         }
       }
     }
