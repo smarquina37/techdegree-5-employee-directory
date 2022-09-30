@@ -66,29 +66,41 @@ gallery.insertAdjacentHTML('beforeend', cardDiv);
 //  MODAL
 // ------------------------------------------
 
+
+// const myDate = new Date($data.dob.date);
+// const dob = myDate.toLocaleDateString();
+// console.log(myDate)
+
+
 function showModal(data) {
   const employeeModal = `
     <div class="modal-container">
       <div class="modal">
         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
         <div class="modal-info-container">
-          <img class="modal-img" src="${data.picture.thumbnail}" alt="profile picture">
+          <img class="modal-img" src="${data.picture.large}" alt="profile picture">
           <h3 id="name" class="modal-name cap">${data.name.first} ${data.name.last}</h3>
           <p class="modal-text">${data.email}</p>
           <p class="modal-text cap">${data.location.city}</p>
           <hr>
-          <p class="modal-text">${data.dob}</p>
+          <p class="modal-text">${data.cell}</p>
           <p class="modal-text">${data.location.street.number} ${data.location.street.name}, ${data.location.city}, ${data.location.state} ${data.location.postcode}</p>
           <p class="modal-text">Birthday:${data.dob}</p>
         </div>
       </div>
     </div>
   `;
-  employeeModal.style.display = 'block'
   gallery.insertAdjacentHTML('beforeend', employeeModal);
+
+  const modalContainer = document.querySelector('.modal-container');
+  document.getElementById('modal-close-btn').addEventListener('click', (e) => {
+    if (e.target.closest('.modal-close-btn')) {
+      modalContainer.remove();
+    }
+})
   }
 
-//Event Listener
+//Event Listener to show modal on page after user clicks on employee card
 
 gallery.addEventListener('click', e => {
   if (e.target.classList !== 'gallery') {
@@ -98,9 +110,13 @@ gallery.addEventListener('click', e => {
       for (let i = 0; i < employeeData.length; i++) {
         if ( employeeData[i].email === userEmail) {
           showModal(employeeData[i]);
+          const myDate = new Date(employeeData[i].dob.date);
+          const dob = myDate.toLocaleDateString();
+          console.log(myDate);
         }
       }
     }
   }
 })
+
 
