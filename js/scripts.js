@@ -1,5 +1,6 @@
 const searchContainer = document.querySelector('.search-container');
 const gallery = document.getElementById('gallery');
+let employeeData=[];
 
 
 // ------------------------------------------
@@ -32,9 +33,12 @@ employeeSearch.addEventListener('keyup', e => {
 //  FETCH FUNCTION - pulls 12 random employees from the API each time page refreshes
 // ------------------------------------------
 
-fetch('https://randomuser.me/api/?results=12')
+fetch('https://randomuser.me/api/?results=12&nat=us')
 .then(response => response.json())
-.then(data => generateCard(data.results))
+.then(data => {
+  employeeData = data.results
+})
+.then(() => generateCard(employeeData))
 
 
 // ------------------------------------------
@@ -62,10 +66,34 @@ gallery.insertAdjacentHTML('beforeend', cardDiv);
 //  MODAL
 // ------------------------------------------
 
-// const cardContainer = document.querySelectorAll('.card');
-  
-// cardContainer.addEventListener('click', (e) => {
-//   for (let i =0; i < card.length; i++) {
-//       console.log(cardContainer[i]);
-//     }
+function createModal(data) {
+  const employeeModal = `
+    <div class="modal-container">
+      <div class="modal">
+        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+        <div class="modal-info-container">
+          <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
+          <h3 id="name" class="modal-name cap">name</h3>
+          <p class="modal-text">email</p>
+          <p class="modal-text cap">city</p>
+          <hr>
+          <p class="modal-text">(555) 555-5555</p>
+          <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
+          <p class="modal-text">Birthday: 10/21/2015</p>
+        </div>
+      </div>
+    </div>
+  `;
+  gallery.insertAdjacentHTML('beforeend', employeeModal);
+  }
+createModal(employeeData);
+
+//Event Listener
+
+// gallery.addEventListener('click', e => {
+//   if (e.target.classList.contains('card')) {
+//     createModal(employeeData).
+//   }
 // })
+
+
